@@ -20,13 +20,13 @@ def test_post_login_success(base_url):
         token = response.json().get("token")
         token_pattern = r"^[A-Za-z0-9]+$"
 
-    with allure.step('Проверяка кода'):
+    with allure.step('Проверка кода'):
         assert response.status_code == 200
 
-    with allure.step('Проверяка токена'):
+    with allure.step('Проверка токена'):
         assert re.match(token_pattern, token)
 
-    with allure.step('Проверяка схемы'):
+    with allure.step('Проверка схемы'):
         with open('schemas/login.json') as file:
             schema = json.load(file)
         validate(response.json(), schema)

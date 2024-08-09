@@ -1,0 +1,44 @@
+import requests
+import json
+from jsonschema import validate
+import allure
+
+
+endpoint_register = '/register'
+
+
+@allure.feature("Регистрация пользователя")
+@allure.story("Регистрация нового пользователя")
+@allure.title("Успешная регистрация нового пользователя")
+def test_post_register_success(base_url):
+    with allure.step('Отправление запроса'):
+        payload = {
+            "email": "eve.holt@reqres.in",
+            "password": "pistol"
+        }
+        response = requests.post(base_url + endpoint_register, data=payload)
+
+    with allure.step('Проверка кода'):
+       assert response.status_code == 200
+
+    with allure.step('Проверка схемы'):
+        with open('schemas/register.json') as file:
+            schema = json.load(file)
+        validate(response.json(), schema)
+
+
+@allure.feature("Регистрация пользователя")
+@allure.story("Регистрация нового пользователя")
+@allure.title("Неуспешная регистрация нового пользователя")
+def test_post_register_fail(base_url):
+    with allure.step('Отправление запроса'):
+        payload = {
+            "email": "sydney@fife"
+        }
+        response = requests.post(base_url + endpoint_register, data=payload)
+
+    with allure.step('Проверка кода'):
+        assert response.status_code == 400
+
+    with allure.step('Проверка текста ошибки'):
+        assert response.json()['error'] == "Missing password"

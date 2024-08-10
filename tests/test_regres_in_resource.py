@@ -2,7 +2,8 @@ import requests
 from jsonschema import validate
 import json
 import allure
-
+from path import project_root
+import os
 
 endpoint_resource = '/unknown/'
 
@@ -22,7 +23,8 @@ def test_get_single_resource(base_url):
         assert response.json()['data']['id'] == id_user
 
     with allure.step('Проверка схемы'):
-        with open('../schemas/resource.json') as file:
+        schema_path = os.path.join(project_root, 'schemas', 'resource.json')
+        with open(schema_path) as file:
             schema = json.load(file)
         validate(response.json(), schema)
 

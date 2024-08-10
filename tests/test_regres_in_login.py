@@ -3,6 +3,8 @@ import json
 from jsonschema import validate
 import re
 import allure
+from path import project_root
+import os
 
 endpoint_login = '/login'
 
@@ -27,7 +29,8 @@ def test_post_login_success(base_url):
         assert re.match(token_pattern, token)
 
     with allure.step('Проверка схемы'):
-        with open('../schemas/login.json') as file:
+        schema_path = os.path.join(project_root, 'schemas', 'login.json')
+        with open(schema_path) as file:
             schema = json.load(file)
         validate(response.json(), schema)
 

@@ -22,7 +22,7 @@ def test_post_register_success(base_url):
        assert response.status_code == 200
 
     with allure.step('Проверка схемы'):
-        with open('schemas/register.json') as file:
+        with open('../schemas/register.json') as file:
             schema = json.load(file)
         validate(response.json(), schema)
 

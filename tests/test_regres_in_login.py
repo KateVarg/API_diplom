@@ -27,7 +27,7 @@ def test_post_login_success(base_url):
         assert re.match(token_pattern, token)
 
     with allure.step('Проверка схемы'):
-        with open('schemas/login.json') as file:
+        with open('../schemas/login.json') as file:
             schema = json.load(file)
         validate(response.json(), schema)
 

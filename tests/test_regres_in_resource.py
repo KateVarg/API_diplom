@@ -22,7 +22,7 @@ def test_get_single_resource(base_url):
         assert response.json()['data']['id'] == id_user
 
     with allure.step('Проверка схемы'):
-        with open('schemas/resource.json') as file:
+        with open('../schemas/resource.json') as file:
             schema = json.load(file)
         validate(response.json(), schema)
 

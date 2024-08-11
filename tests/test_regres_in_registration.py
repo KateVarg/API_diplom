@@ -2,11 +2,8 @@ import requests
 import json
 from jsonschema import validate
 import allure
-from path import project_root
-import os
-
-
-endpoint_register = '/register'
+from API_autotest_diplom.utils import path
+from API_autotest_diplom.utils.requests_helper import api_request
 
 
 @allure.feature("Регистрация пользователя")
@@ -18,13 +15,14 @@ def test_post_register_success(base_url):
             "email": "eve.holt@reqres.in",
             "password": "pistol"
         }
-        response = requests.post(base_url + endpoint_register, data=payload)
+        url = base_url
+        response = api_request(url, endpoint="/register", method="POST", data=payload)
 
     with allure.step('Проверка кода'):
        assert response.status_code == 200
 
     with allure.step('Проверка схемы'):
-        schema_path = os.path.join(project_root, 'schemas', 'register.json')
+        schema_path = path.abs_path_from_project('schemas/register.json')
         with open(schema_path) as file:
             schema = json.load(file)
         validate(response.json(), schema)
@@ -38,7 +36,8 @@ def test_post_register_fail(base_url):
         payload = {
             "email": "sydney@fife"
         }
-        response = requests.post(base_url + endpoint_register, data=payload)
+        url = base_url
+        response = api_request(url, endpoint="/register", method="POST", data=payload)
 
     with allure.step('Проверка кода'):
         assert response.status_code == 400

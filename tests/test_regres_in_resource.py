@@ -2,10 +2,8 @@ import requests
 from jsonschema import validate
 import json
 import allure
-from path import project_root
-import os
-
-endpoint_resource = '/unknown/'
+from API_autotest_diplom.utils import path
+from API_autotest_diplom.utils.requests_helper import api_request
 
 
 @allure.feature("Получение данных о товаре")
@@ -14,7 +12,8 @@ endpoint_resource = '/unknown/'
 def test_get_single_resource(base_url):
     with allure.step('Отправление запроса'):
         id_user = 4
-        response = requests.get(base_url + endpoint_resource + str(id_user))
+        url = base_url
+        response = api_request(url, endpoint=f"/unknown/{id_user}", method="GET")
 
     with allure.step('Проверка кода'):
         assert response.status_code == 200
@@ -23,7 +22,7 @@ def test_get_single_resource(base_url):
         assert response.json()['data']['id'] == id_user
 
     with allure.step('Проверка схемы'):
-        schema_path = os.path.join(project_root, 'schemas', 'resource.json')
+        schema_path = path.abs_path_from_project('schemas/resource.json')
         with open(schema_path) as file:
             schema = json.load(file)
         validate(response.json(), schema)
@@ -35,7 +34,8 @@ def test_get_single_resource(base_url):
 def test_get_single_resource_not_found(base_url):
     with allure.step('Отправление запроса'):
         id_user = 45
-        response = requests.get(base_url + endpoint_resource + str(id_user))
+        url = base_url
+        response = api_request(url, endpoint=f"/unknown/{id_user}", method="GET")
 
     with allure.step('Проверка кода'):
         assert response.status_code == 404

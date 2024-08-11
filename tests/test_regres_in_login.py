@@ -1,12 +1,9 @@
-import requests
 import json
 from jsonschema import validate
 import re
 import allure
-from path import project_root
-import os
-
-endpoint_login = '/login'
+from API_autotest_diplom.utils import path
+from API_autotest_diplom.utils.requests_helper import api_request
 
 
 @allure.feature("Авторизация пользователя")
@@ -18,7 +15,8 @@ def test_post_login_success(base_url):
             "email": "eve.holt@reqres.in",
             "password": "cityslicka"
         }
-        response = requests.post(base_url + endpoint_login, data=payload)
+        url = base_url
+        response = api_request(url, endpoint="/login", method="POST", data=payload)
         token = response.json().get("token")
         token_pattern = r"^[A-Za-z0-9]+$"
 
@@ -29,7 +27,7 @@ def test_post_login_success(base_url):
         assert re.match(token_pattern, token)
 
     with allure.step('Проверка схемы'):
-        schema_path = os.path.join(project_root, 'schemas', 'login.json')
+        schema_path = path.abs_path_from_project('schemas/login.json')
         with open(schema_path) as file:
             schema = json.load(file)
         validate(response.json(), schema)
@@ -43,7 +41,8 @@ def test_post_login_fail(base_url):
         payload = {
             "email": "peter@klaven"
         }
-    response = requests.post(base_url + endpoint_login, data=payload)
+        url = base_url
+        response = api_request(url, endpoint="/login", method="POST", data=payload)
 
     with allure.step('Проверка кода'):
         assert response.status_code == 400

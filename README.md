@@ -93,7 +93,7 @@ allure serve tests/allure-results/
 
 </details>
 
-## <img src="resources/AllureTestOps.png" width="30" height="30"  alt="Allure TestOps"/> Отчет в <a href = "https://allure.autotests.cloud/project/4367/dashboards">Allure TestOps</a>
+## <img src="API_autotest_diplom/resources/AllureTestOps.png" width="30" height="30"  alt="Allure TestOps"/> Отчет в <a href = "https://allure.autotests.cloud/project/4367/dashboards">Allure TestOps</a>
 
 <details><summary>Основной отчет</summary>
 

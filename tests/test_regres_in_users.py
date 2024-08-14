@@ -1,7 +1,7 @@
 from jsonschema import validate
 from schemas.user import get_user, post_user, put_user
 import allure
-from API_autotest_diplom.utils.requests_helper import api_request
+from reqresin_project_tests.utils.requests_helper import api_request
 
 
 @allure.feature("Пользователь")

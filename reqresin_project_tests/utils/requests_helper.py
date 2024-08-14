@@ -1,5 +1,4 @@
-
-from API_autotest_diplom.utils.attach import response_logging, response_attaching
+from reqresin_project_tests.utils.attach import response_logging, response_attaching
 import requests
 
 

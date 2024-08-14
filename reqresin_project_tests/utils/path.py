@@ -1,11 +1,10 @@
-import os
-import API_autotest_diplom
+import reqresin_project_tests
 from pathlib import Path
 
 
 def abs_path_from_project(relative_path: str):
     return (
-        Path(API_autotest_diplom.__file__)
+        Path(reqresin_project_tests.__file__)
         .parent.parent.joinpath(relative_path)
         .absolute()
         .__str__()

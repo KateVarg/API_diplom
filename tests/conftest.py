@@ -1,7 +1,4 @@
 import pytest
-import requests
-
-from API_autotest_diplom.utils import attach
 
 
 @pytest.fixture()

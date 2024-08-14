@@ -2,8 +2,8 @@ import json
 from jsonschema import validate
 import re
 import allure
-from API_autotest_diplom.utils import path
-from API_autotest_diplom.utils.requests_helper import api_request
+from reqresin_project_tests.utils import path
+from reqresin_project_tests.utils.requests_helper import api_request
 
 
 @allure.feature("Авторизация пользователя")

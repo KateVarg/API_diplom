@@ -1,4 +1,4 @@
-from reqresin_project_tests.utils.attach import response_logging, response_attaching
+from reqres_in_project_tests.utils.attach import response_logging, response_attaching
 import requests
 
 

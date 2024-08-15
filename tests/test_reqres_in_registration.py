@@ -1,8 +1,8 @@
 import json
 from jsonschema import validate
 import allure
-from reqresin_project_tests.utils import path
-from reqresin_project_tests.utils.requests_helper import api_request
+from reqres_in_project_tests.utils import path
+from reqres_in_project_tests.utils.requests_helper import api_request
 
 
 @allure.feature("Регистрация пользователя")
